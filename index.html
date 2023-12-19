@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guessing Game</title>
+  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      margin: 50px;
+      background-image: url('img/maths.jpg.jpeg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      animation: pulsate 2s infinite;
+    }
+    h1 {
+      font-family: 'Arial', sans-serif;
+      color: #FFE1E0;
+      font-size: 50px;
+      font-weight: 900;
+      background-color: #944D4F;
+    }
+    p {
+      font-size: 32px;
+      color: #944D4F;
+      font-weight: 700;
+      background-color: #FFE1E0;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      color: black;
+      border-color: black;
+    }
+    button {
+      background: linear-gradient(to bottom, #FFBCCD, #FF6F8B);
+      color: black;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    button:hover {
+      background-color: lightcoral;
+    }
+    h4 {
+      font-family: 'Arial', sans-serif;
+      color: #ffe1e0;
+      font-size: 26px;
+      text-align: justify;  
+  text-align-last: right;
+    }
+   
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0); }
+      100% { transform: translateY(-1000px) rotate(720deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Guess the Number Game</h1>
+  <p>Guess a number between 1 and 100:</p>
+  <h4>By Anchal Biyani</h4>
+
+  <input type="number" id="userGuess" placeholder="Enter your guess" />
+  <button onclick="checkGuess()">Submit Guess</button>
+
+  <div id="result"></div>
+
+  <script>
+ 
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      const userGuess = parseInt(document.getElementById('userGuess').value);
+
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        alert('Please enter a valid number between 1 and 100.');
+        return;
+      }
+
+      attempts++;
+
+      if (userGuess === secretNumber) {
+        displayResult(`Congratulations! You guessed the correct number (${secretNumber}) in ${attempts} attempts.`);
+      } else {
+        const hint = userGuess < secretNumber ? 'higher' : 'lower';
+        displayResult(`Incorrect! Try a ${hint} number.`);
+      }
+    }
+
+    function displayResult(message) {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<p>${message}</p>`;
+
+      if (message.includes('Congratulations')) {
+        resultDiv.style.animation = 'confetti 1s ease-out';
+      }
+    }
+  </script>
+
+</body>
+</html>
